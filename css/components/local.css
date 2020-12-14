@@ -1,0 +1,25 @@
+.local__refresh {
+  margin-bottom: 15px;
+}
+
+.local b {
+  font-family: "Roboto-Medium", "Arial", sans-serif;
+  font-size: 18px;
+  color: var(--main-color);
+}
+
+@media (min-width: 426px) {
+  .local b {
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 924px) {
+  .local__refresh {
+    margin-bottom: 25px;
+  }
+
+  .local b {
+    font-size: 26px;
+  }
+}

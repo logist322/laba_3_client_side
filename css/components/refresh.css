@@ -1,0 +1,125 @@
+@keyframes round {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.refresh {
+  display: flex;
+  align-items: center;
+}
+
+.refresh__heading {
+  font-family: "SourceSerifPro-Light", "Arial", serif;
+  font-size: 26px;
+  color: var(--main-color);
+  line-height: 1;
+
+  margin: 0;
+}
+
+.refresh__button {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  margin: 0 40px 0 auto;
+
+  background-color: var(--main-color);
+}
+
+.refresh__button:disabled {
+  --color: rgb(83, 84, 127, 0.7);
+
+  background-color: var(--color);
+}
+
+.refresh__button::after {
+  --size: 40px;
+
+  position: absolute;
+  top: calc(50% - (var(--size) - 10px) / 2);
+  left: calc(50% - (var(--size) - 10px) / 2);
+  content: "";
+  width: calc(var(--size) - 10px);
+  height: calc(var(--size) - 10px);
+  background-image: url(../../img/refresh.svg);
+  pointer-events: none;
+}
+
+.refresh__button--loading::after {
+  animation: 1.5s round linear infinite;
+}
+
+.refresh__button--error {
+  --color: red;
+  box-shadow: 0 0 15px 0 var(--color);
+  background-color: var(--color);
+  font-weight: bold;
+}
+
+.refresh__button-text {
+  font-size: 0;
+}
+
+@media (min-width: 426px) {
+  .refresh__heading {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 520px) { 
+  .refresh__button {
+    width: 210px;
+    background-image: none;
+    margin-right: 0;
+  }
+
+  .refresh__button::after {
+    display: none;
+    --size: 40px;
+
+    top: calc(50% - var(--size)/2);
+    left: calc(-2 * var(--size));
+    width: var(--size);
+    height: var(--size);
+    background-image: url(../../img/refresh-dark.svg);
+  }
+
+  .refresh__button--loading::after {
+    display: block;
+  }
+
+  .refresh__button-text {
+    font-family: "SourceSerifPro-Light", "Arial", serif;
+    font-size: 14px;
+    color: var(--light-color);
+  }
+}
+
+@media (min-width: 924px) {
+  .refresh {
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+    gap: auto;
+  }
+
+  .refresh__button {
+    margin: 0 auto;
+  }
+  
+  .refresh__button::after {
+    left: 120%;
+  }
+
+  .refresh__button-text {
+    font-size: 16px;
+  }
+}
