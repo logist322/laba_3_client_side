@@ -1,4 +1,4 @@
-const ENDPOINT = `http://web-lab2-bgubanov.herokuapp.com`;
+const ENDPOINT = `https://web-lab2-bgubanov.herokuapp.com`;
 
 const DEFAULT_COORDS = {
   latitude: 59.9344574,
