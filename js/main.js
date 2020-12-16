@@ -76,11 +76,7 @@ function getFavoritesData () {
 
 function getDataByName (cityName) {
   return sendRequest(`name`, cityName).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      throw new Error(`"${cityName}" уже в избранном.`);
+      return res.json();
     });
 }
 
@@ -88,20 +84,6 @@ function deleteCityByID (id) {
   return sendRequest(`del`, id).then((res) => {
     return res.json();
   });
-}
-
-function isStorageEmpty () {
-  if (!getCitiesFromStorage()) {
-    setCitiesInStorage([]);
-
-    return true;
-  }
-
-  if (!getCitiesFromStorage().length) {
-    return true;
-  }
-
-  return false;
 }
 
 function getDirection (deg) {
@@ -268,16 +250,6 @@ function getFavoritesItem (container, data) {
 }
 
 function initFavoritesWeather (container) {
-  // if (isStorageEmpty()) {
-  //   container.lastElementChild.remove();
-
-  //   const errorElement = document.createElement(`b`);
-  //   errorElement.textContent = `Пока нет избранных городов.`;
-
-  //   container.appendChild(errorElement);
-
-  //   return;
-  // }
 
   getFavoritesData()
     .then((data) => {
@@ -341,6 +313,16 @@ function formHandler () {
 
     getDataByName(addInputElement.value)
       .then((data) => {
+        addButtonElement.disabled = false;
+        addInputElement.disabled = false;
+        addInputElement.value = ``;
+
+        if (data.message) {
+          alert(data.message);
+
+          return;
+        }
+
         if (isFavoritesEmpty) {
           favoritesBoardElement.innerHTML = ``;
         }
@@ -348,17 +330,6 @@ function formHandler () {
         isFavoritesEmpty = false;
 
         getFavoritesItem(favoritesBoardElement, getWeatherData(data));
-
-        addButtonElement.disabled = false;
-        addInputElement.disabled = false;
-        addInputElement.value = ``;
-      })
-      .catch(() => {
-        alert(`Не удалось найти "${addInputElement.value}"`);
-
-        addButtonElement.disabled = false;
-        addInputElement.disabled = false;
-        addInputElement.value = ``;
       });
   });
 }
